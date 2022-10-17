@@ -159,8 +159,8 @@ patches:
     kind: Application
     labelSelector: "gitops.tier.layer=services,gitops.tier.source=helm"
   patch: |-
-    - op: add
-      path: /spec/source/repoURL
+    - op add
+      path: /repoURL
       value: https://charts.cloudnativetoolkit.dev
 - target:
     name: ibm-automation-foundation-operator
