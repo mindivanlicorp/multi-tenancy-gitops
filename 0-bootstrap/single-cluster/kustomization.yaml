@@ -1,69 +1,42 @@
 resources:
-- 1-infra/1-infra.yaml
-#- 2-services/2-services.yaml
-#- 3-apps/3-apps.yaml
+#- argocd/consolelink.yaml
+- argocd/consolenotification.yaml
+- argocd/namespace-ibm-common-services.yaml
+#- argocd/namespace-ci.yaml
+#- argocd/namespace-dev.yaml
+#- argocd/namespace-staging.yaml
+#- argocd/namespace-prod.yaml
+#- argocd/namespace-cloudpak.yaml
+#- argocd/namespace-istio-system.yaml
+#- argocd/namespace-openldap.yaml
+- argocd/namespace-sealed-secrets.yaml
+- argocd/namespace-tools.yaml
+#- argocd/namespace-instana-agent.yaml
+#- argocd/namespace-robot-shop.yaml
+#- argocd/namespace-openshift-storage.yaml
+#- argocd/namespace-spp.yaml
+#- argocd/namespace-spp-velero.yaml
+#- argocd/namespace-baas.yaml
+#- argocd/namespace-db2.yaml
+#- argocd/namespace-mq.yaml
+#- argocd/serviceaccounts-ibm-common-services.yaml
+#- argocd/serviceaccounts-tools.yaml
+#- argocd/serviceaccounts-db2.yaml
+#- argocd/serviceaccounts-mq.yaml
+#- argocd/scc-wkc-iis.yaml
+#- argocd/storage.yaml
+#- argocd/infraconfig.yaml
+#- argocd/machinesets.yaml
 patches:
-- target:
-    group: argoproj.io
-    kind: Application
-    labelSelector: "gitops.tier.layer=gitops"
-  patch: |-
-    - op: add
-      path: /spec/source/repoURL
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops.git
-    - op: add
-      path: /spec/source/targetRevision
-      value: master
-- target:
-    group: argoproj.io
-    kind: AppProject
-  patch: |-
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://charts.cloudnativetoolkit.dev
-- target:
-    group: argoproj.io
-    kind: AppProject
-    labelSelector: "gitops.tier.layer=infra"
-  patch: |-
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops.git
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops-infra.git
-- target:
-    group: argoproj.io
-    kind: AppProject
-    labelSelector: "gitops.tier.layer=services"
-  patch: |-
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops.git
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops-services.git
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops-apps.git
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://charts.cloudnativetoolkit.dev
-- target:
-    group: argoproj.io
-    kind: AppProject
-    labelSelector: "gitops.tier.layer=applications"
-  patch: |-
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops.git
-    - op: add
-      path: /spec/sourceRepos/-
-      value: https://github.com/mindivanlicorp/multi-tenancy-gitops-apps.git
-- target:
-    group: argoproj.io
-    kind: Application
-  patch: |-
-    - op: replace
-      path: /spec/destination/namespace
-      value: openshift-gitops
+  - target:
+      group: argoproj.io
+      kind: Application
+      labelSelector: "gitops.tier.layer=infra"
+    patch: |-
+      - op: add
+        path: /spec/source/repoURL
+        value: https://github.com/tutorial-org-123/multi-tenancy-gitops-infra.git
+      - op: add
+        path: /spec/source/targetRevision
+        value: master
+
