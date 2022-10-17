@@ -1,7 +1,7 @@
 resources:
 - 1-infra/1-infra.yaml
 - 2-services/2-services.yaml
-# - 3-apps/3-apps.yaml
+  #- 3-apps/3-apps.yaml
 patches:
 - target:
     group: argoproj.io
@@ -14,6 +14,13 @@ patches:
     - op: add
       path: /spec/source/targetRevision
       value: master
+- target:
+    group: argoproj.io
+    kind: AppProject
+  patch: |-
+    - op: add
+      path: /spec/sourceRepos/-
+      value: https://charts.cloudnativetoolkit.dev
 - target:
     group: argoproj.io
     kind: AppProject
@@ -36,6 +43,12 @@ patches:
     - op: add
       path: /spec/sourceRepos/-
       value: https://github.com/mindivanlicorp/multi-tenancy-gitops-services.git
+    - op: add
+      path: /spec/sourceRepos/-
+      value: https://github.com/mindivanlicorp/multi-tenancy-gitops-apps.git
+    - op: add
+      path: /spec/sourceRepos/-
+      value: https://charts.cloudnativetoolkit.dev
 - target:
     group: argoproj.io
     kind: AppProject
@@ -47,3 +60,10 @@ patches:
     - op: add
       path: /spec/sourceRepos/-
       value: https://github.com/mindivanlicorp/multi-tenancy-gitops-apps.git
+- target:
+    group: argoproj.io
+    kind: Application
+  patch: |-
+    - op: replace
+      path: /spec/destination/namespace
+      value: openshift-gitops
