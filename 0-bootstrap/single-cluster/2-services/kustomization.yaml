@@ -10,6 +10,9 @@ resources:
 # Sealed Secrets
 - argocd/instances/sealed-secrets.yaml
 
+- argocd/operators/ibm-cpd-wkc-operator.yaml
+- argocd/instances/ibm-cpd-wkc-instance.yaml
+
 patches:
 - target:
     group: argoproj.io
